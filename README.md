@@ -1,7 +1,7 @@
 # React + Redux Seed Application
 A React + Redux frontend starter/seed application, made for Bluemix. Includes
-- Buildpacking and runtime compiling w/ Gulp
-- Package management with NPM and Bower
+- Module loading w/ Webpack
+- Package management with NPM
 - Unit Testing w/ TBA
 - SCSS
 - Pre-configured Bluemix Toolchain
@@ -19,4 +19,4 @@ After you've pulled all files from your newly created repo:
 Prod: gulp build --type production
 
 ----
-Keep rocking, keep shocking™
+Bjeff it up!™
