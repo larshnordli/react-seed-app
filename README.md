@@ -14,7 +14,8 @@ Creating an app is simple as pie. Click the button and follow the steps - a clon
 After you've pulled all files from your newly created repo:
 1. npm install
 2. bower install
-3. gulp serve
+3. webpack-dev-server --content-base dist
+4. Access your page on localhost:8080
 
 Prod: gulp build --type production
 

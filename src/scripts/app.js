@@ -1,7 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-ReactDOM.render(
-   <h1>Hello From React Seed App!</h1>,
-   document.getElementById('root')
-);
+class Layout extends React.Component{
+   render(){
+      return(
+         <h1>This is great!</h1>
+      )
+   }
+}
+
+const app = document.getElementById('app');
+ReactDOM.render(<Layout/>, app);
