@@ -4,7 +4,9 @@ export default class Footer extends React.Component{
 
    render(){
       return(
-         <footer>Footer</footer>
+         <footer>
+            <p>© {this.props.copyrightYear} {this.props.copyrightHolder}</p>
+         </footer>
       )
    }
 }

@@ -5,11 +5,10 @@ import Footer from './Footer';
 
 export default class Layout extends React.Component{
    render(){
-      const title = "Welcome!";
       return(
          <div>
-            <Header title="{title}"/>
-            <Footer />
+            <Header title="React Seed App"/>
+            <Footer copyrightYear="2017" copyrightHolder="Lars Henrik Nordli"/>
          </div>
       )
    }

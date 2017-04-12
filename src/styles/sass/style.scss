@@ -1,6 +1,20 @@
-$font-stack: Helvetica, sans-serif;
-$primary-color: black;
+// Import your own custom fonts from e.g. web sources
+
+// * Note: If you are adding own custom font files in the project,
+// * remember to add them to webpack config for improved load time.
+
+@import url('https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700');
+
+// Global variables
+$font-stack: 'Merriweather Sans', Helvetica, sans-serif;
+$primary-color: #333;
+
+$anchor-color: #2980b9;
+$anchor-color-hover: #2c3e50;
+
 $body-background: #2980b9;
+
+$material-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 
 body {
   font: 100% $font-stack;
@@ -16,5 +30,28 @@ body {
    margin-top:3em;
    background:#ecf0f1;
    padding:1.5em;
-   box-shadow: 0 0 1em 0.1em #2c3e50;
+   box-shadow: $material-box-shadow;
+}
+
+p, a, li, span, input{
+   font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6, strong{
+   font-weight: 700;
+}
+
+a, button{
+   transition: all 0.2s ease;
+}
+
+nav{
+   a{
+      margin-right: 1.5em;
+      color: #2980b9;
+      //Using parent selector &
+      &:hover{
+         color: #2c3e50;
+      }
+   }
 }
