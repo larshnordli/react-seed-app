@@ -1,22 +1,28 @@
-var debug = process.env.NODE_ENV !== 'production';
-var webpack = require('webpack');
+const debug = process.env.NODE_ENV !== 'production';
+const webpack = require('webpack');
 
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-   context: __dirname + '/src',
-   devtool: debug ? 'inline-sourcemap' : null,
-   entry: './scripts/app.js',
+   context: __dirname,
+   devtool: debug ? 'source-map' : null,
+   entry:{
+      main: './src/scripts/app.js',
+   },
+   output: {
+      filename: './dist/scripts/[name].js'
+   },
    module: {
-      rules: [
-         // SASS loaders
+      loaders: [
+         // SASS Loader and Transpiler
          {
             test: /\.scss$/,
             use: ExtractTextPlugin.extract({
-               fallback: "style-loader",
+               fallback: 'style-loader',
                use: ['css-loader', 'sass-loader']
             })
          },
+
          // JS Loaders
          {
             test: /\.js?$/,
@@ -29,11 +35,12 @@ module.exports = {
          }
       ]
    },
-   output: {
-      path: __dirname + '/src/',
-      filename: 'app.min.js'
-   },
-   plugins: debug ? [] : [
+   plugins: debug ? [
+      new ExtractTextPlugin({
+         filename:'./dist/styles/[name].css',
+         allChunks: true
+      })
+   ] : [
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.optimize.UglifyJsPlugin(
@@ -41,11 +48,9 @@ module.exports = {
             mangle:false,
             sourcemap: false
          }),
-      new ExtractTextPlugin(
-         {
-            allChunks: false,
-            filename: './styles/style.css',
-            disable: process.env.NODE_ENV === "development"
-         }),
+         new ExtractTextPlugin({
+            filename:'./dist/styles/[name].css',
+            allChunks: true
+         })
    ],
 };
