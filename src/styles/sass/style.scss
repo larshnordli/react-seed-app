@@ -1,9 +1,20 @@
 $font-stack: Helvetica, sans-serif;
-$primary-color: white;
+$primary-color: black;
 $body-background: #2980b9;
 
 body {
   font: 100% $font-stack;
   color: $primary-color;
   background: $body-background;
+}
+
+#app{
+   display: block;
+   width:80%;
+   margin-left: auto;
+   margin-right: auto;
+   margin-top:3em;
+   background:#ecf0f1;
+   padding:1.5em;
+   box-shadow: 0 0 1em 0.1em #2c3e50;
 }

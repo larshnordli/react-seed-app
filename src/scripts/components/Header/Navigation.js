@@ -9,6 +9,7 @@ export default class Navigation extends React.Component{
          { url: '/home', title: 'Home'},
          { url: '/about', title: 'About'},
          { url: '/pricing', title: 'Pricing'},
+         { url: '/test', title: 'Tester'},
          { url: '/contact', title: 'Contact'},
       ];
 
