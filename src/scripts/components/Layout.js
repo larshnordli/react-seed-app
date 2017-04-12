@@ -2,6 +2,7 @@ import React from 'react';
 
 import Header from './Header';
 import Footer from './Footer';
+import Main from './Main'
 
 export default class Layout extends React.Component{
    render(){
@@ -10,7 +11,9 @@ export default class Layout extends React.Component{
             <Header
                title="React Seed App"
             />
-            
+
+            <Main />
+
             <Footer
                copyrightYear="2017"
                copyrightHolder="Lars Henrik Nordli"
