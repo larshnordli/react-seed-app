@@ -6,11 +6,9 @@ export default class Navigation extends React.Component{
    constructor(){
       super();
       const navItems = [
-         { url: '/home', title: 'Home'},
+         { url: '/', title: 'Home'},
          { url: '/about', title: 'About'},
-         { url: '/pricing', title: 'Pricing'},
-         { url: '/test', title: 'Tester'},
-         { url: '/contact', title: 'Contact'},
+         { url: '/pricing', title: 'Pricing'}
       ];
 
       this.navigationItems = navItems.map((navItem, index) =>

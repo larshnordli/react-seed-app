@@ -1,8 +1,7 @@
 import React from 'react';
 
-import Header from './Header';
-import Footer from './Footer';
-import Main from './Main'
+import Header from './Layout/Header';
+import Footer from './Layout/Footer';
 
 export default class Layout extends React.Component{
    render(){
@@ -12,7 +11,9 @@ export default class Layout extends React.Component{
                title="React Seed App"
             />
 
-            <Main />
+            <main>
+               {this.props.children} //Dynamic view through Router
+            </main>
 
             <Footer
                copyrightYear="2017"
