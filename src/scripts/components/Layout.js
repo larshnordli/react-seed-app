@@ -12,7 +12,7 @@ export default class Layout extends React.Component{
             />
 
             <main>
-               {this.props.children} //Dynamic view through Router
+               {this.props.children} {/*Dynamic view through Router*/}
             </main>
 
             <Footer
