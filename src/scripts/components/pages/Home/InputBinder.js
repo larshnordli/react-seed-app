@@ -21,7 +21,7 @@ export default class InputBinder extends React.Component{
 
    render(){
       return(
-         <div>
+         <div class="child-component">
             <input
                value={this.state.text}
                onChange={this.handleChange.bind(this)}

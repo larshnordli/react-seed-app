@@ -9,18 +9,17 @@
 $font-stack: 'Merriweather Sans', Helvetica, sans-serif;
 $primary-color: #333;
 
-$anchor-color: #005200;
+$anchor-color: #646E75;
 $anchor-color-hover: #009b00;
 
-$body-background: #27ae60;
+$body-background: #F5F5F5;
 
 $material-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 
 @mixin material-box {
-   background: blue;
-   background:#ecf0f1;
+   background:#C2C2C2;
    padding:1.5em;
-   margin:1em;
+   // margin:1em;
    box-shadow: $material-box-shadow;
 }
 
@@ -41,14 +40,14 @@ body {
   font-size: 16px; /* IE Fix*/
   color: $primary-color;
   background: $body-background;
+  margin:0;
+  padding:0;
 }
 
 #app{
    display: block;
-   width:90%;
-   margin-left: auto;
-   margin-right: auto;
-   margin-top:3em;
+   width:100%;
+   margin:0;
    vertical-align: middle;
 }
 
@@ -65,10 +64,16 @@ header{
 }
 
 main{
-   margin:1em;
+   width:97.5%;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   margin-top:3em;
+   margin-bottom:3em;
 
    & .component{
       margin-left: 0;
+      background:#fff;
    }
 }
 

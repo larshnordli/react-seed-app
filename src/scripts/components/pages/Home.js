@@ -4,15 +4,17 @@ import React from 'react';
 // import Component from './Main/Component';
 
 import InputBinder from './Home/InputBinder';
+import BrewskiGenerator from './Home/BrewskiGenerator';
 
 export default class Home extends React.Component{
    render(){
       return(
-         <div class="component whole">
+         <div>
             <h2>Home</h2>
 
             <p>All your content and components go here!</p>
-            <InputBinder/>
+            <InputBinder class="component one-third"/>
+            <BrewskiGenerator class="component two-thirds" />
          </div>
       )
    }
