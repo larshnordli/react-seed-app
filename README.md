@@ -13,11 +13,13 @@ Creating an app is simple as pie. Click the button and follow the steps - a clon
 ## How to run locally
 After you've pulled all files from your newly created repo:
 1. npm install
-2. bower install
 3. npm run dev
 4. Access your page on localhost:8080
 
-Prod: gulp build --type production
+## How to deploy to Bluemix
+Clik the "Deploy to Bluemix" button after your logged into Bluemix and navigated to the correct Region, Org and Space.
+
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/devops/setup/deploy/?repository=https://github.com/larshnordli/react-seed-app)
 
 ----
 Bjeff it up!™

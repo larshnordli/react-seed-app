@@ -13,14 +13,50 @@ $anchor-color: #646E75;
 $anchor-color-hover: #009b00;
 
 $body-background: #F5F5F5;
+$accent-color: #005500;
+$focus-accent-color: #00FF00;
 
 $material-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 
 @mixin material-box {
    background:#C2C2C2;
    padding:1.5em;
-   // margin:1em;
+   margin:1em;
    box-shadow: $material-box-shadow;
+   border-radius: 0.25em;
+}
+
+@mixin material-button {
+   background: $accent-color;
+   color: white;
+   font-weight: bold;
+   padding-left:1em;
+   padding-right: 1em;
+   padding-top:0.5em;
+   padding-bottom:0.5em;
+
+   border:0;
+   border-radius: 0.25em;
+
+   font: 100% $font-stack;
+
+   &:hover{
+      background: $focus-accent-color;
+      cursor: pointer;
+   }
+}
+
+@mixin material-input{
+   border:0;
+   border-bottom:0.1em solid $primary-color;
+   padding:0.5em;
+   margin-right: 1em;
+   font: 100% $font-stack;
+
+   &:focus{
+      border-bottom:0.1em solid $focus-accent-color !important;
+      outline: none;
+   }
 }
 
 html, body{
@@ -42,6 +78,10 @@ body {
   background: $body-background;
   margin:0;
   padding:0;
+}
+
+button{
+   @include material-button()
 }
 
 #app{
@@ -70,6 +110,8 @@ main{
    margin-right: auto;
    margin-top:3em;
    margin-bottom:3em;
+   overflow: hidden;
+   height: auto;
 
    & .component{
       margin-left: 0;
@@ -112,7 +154,11 @@ nav{
    }
 }
 
-/*Basic grid*/
+input{
+   @include material-input()
+}
+
+/* ===== Basic grid ===== */
 .whole{
    width:100%;
 }
@@ -140,4 +186,41 @@ nav{
 
 .right{
    float:right;
+}
+
+/* ===== CUSTOM STYLES ====== */
+
+.brewski-element{
+   height: auto;
+   overflow: hidden;
+   margin-top:1.5em;
+}
+
+.brewski-element img{
+   display: inline-block;
+   width:20%;
+   height: 15em;
+   float:left;
+   padding:1.25em;
+   object-fit: contain;
+}
+
+.brewski-text{
+   display: inline-block;
+   float: right;
+   width:80%;
+}
+
+.brewski-text .text{
+   transition: max-height .25s ease;
+   display: block;
+   overflow: hidden;
+}
+
+.text.collapsed{
+   max-height:0;
+}
+
+.text.open{
+   max-height:20em;
 }

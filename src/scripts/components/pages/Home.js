@@ -13,8 +13,9 @@ export default class Home extends React.Component{
             <h2>Home</h2>
 
             <p>All your content and components go here!</p>
-            <InputBinder class="component one-third"/>
-            <BrewskiGenerator class="component two-thirds" />
+
+            <InputBinder className="component one-third"/>
+            <BrewskiGenerator className="component two-thirds" />
          </div>
       )
    }
