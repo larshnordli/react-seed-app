@@ -14,19 +14,7 @@ stages:
     artifact_dir: ''
     build_type: npm
     script: |-
-      # Set up required version of Node and NPM
-      export NVM_DIR=/home/pipeline/nvm
-      export NODE_VERSION=7.0.0
-      export NVM_VERSION=0.33.0
-
-      npm config delete prefix \
-        && curl https://raw.githubusercontent.com/creationix/nvm/v${NVM_VERSION}/install.sh | sh \
-        && . $NVM_DIR/nvm.sh \
-        && nvm install $NODE_VERSION \
-        && nvm alias default $NODE_VERSION \
-        && nvm use default \
-        && node -v \
-        && npm -v
+      export PATH=/opt/IBM/node-v4.2/bin:$PATH
 
       # Install & build
       npm install
@@ -43,10 +31,12 @@ stages:
   triggers:
   - type: stage
   jobs:
-  - name: Linting and Unit Tests
+  - name: Test
     type: tester
     script: |-
       #!/bin/bash
+
+      tar -xzf node_modules.tar.gz
 
       #test command here
 
