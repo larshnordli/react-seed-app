@@ -29,7 +29,8 @@ stages:
         && npm -v
 
       # Install & build
-      npm install && npm run build
+      npm install
+      npm run build
 
       tar -czf node_modules.tar.gz node_modules
       rm -rf node_modules

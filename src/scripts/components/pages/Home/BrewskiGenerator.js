@@ -18,12 +18,10 @@ export default class BrewskiGenerator extends React.Component{
       .then((response) => response.json())
       .then((responseJson) => {
          this.state.brewskies.push(responseJson[0])
-
       })
    }
 
    render(){
-      console.log('brewskies', this.state.brewskies);
       return (
          <div className={"child-component " + this.props.className}>
 
@@ -33,9 +31,10 @@ export default class BrewskiGenerator extends React.Component{
                onClick={this.componentDidMount.bind(this)}
             >Fetch me another brewski, will ya?!</button>
 
-            {this.state.brewskies.map(brewski => (
-               <BrewskiViewer brewski={brewski}/>
-            ))}
+            {this.state.brewskies.map(function(brewski){
+               return <p>bjefffff</p>
+            })}
+
 
          </div>
       )
