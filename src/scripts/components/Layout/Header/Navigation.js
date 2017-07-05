@@ -8,7 +8,8 @@ export default class Navigation extends React.Component{
       const navItems = [
          { url: '/', title: 'Home'},
          { url: '/about', title: 'About'},
-         { url: '/pricing', title: 'Pricing'}
+         { url: '/pricing', title: 'Pricing'},
+         { url: '/bjeff', title: 'Hallo Bjeff'}
       ];
 
       this.navigationItems = navItems.map((navItem, index) =>

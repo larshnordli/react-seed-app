@@ -5,6 +5,7 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import Styles from '../styles/sass/style.scss';
 
 // Vendors
+require('!style-loader!css-loader!sass-loader!../vendor/font-awesome/scss/font-awesome.scss');
 import FontAwesome from '../vendor/font-awesome/scss/font-awesome.scss';
 
 import Layout from './components/Layout';

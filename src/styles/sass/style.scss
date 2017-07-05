@@ -7,23 +7,26 @@
 
 // Global variables
 $font-stack: 'Merriweather Sans', Helvetica, sans-serif;
-$primary-color: #333;
+$primary-color: #212121;
 
-$anchor-color: #646E75;
-$anchor-color-hover: #009b00;
+$anchor-color: #fff;
+$anchor-color-hover: #212121;
 
 $body-background: #F5F5F5;
-$accent-color: #005500;
-$focus-accent-color: #00FF00;
+
+$accent-color: #00BCD4;
+$focus-accent-color: #006064;
 
 $material-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 
 @mixin material-box {
-   background:#C2C2C2;
+   background:#4CAF50;
    padding:1.5em;
-   margin:1em;
+   margin:1.5em;
    box-shadow: $material-box-shadow;
    border-radius: 0.25em;
+   height: auto;
+   overflow: hidden;
 }
 
 @mixin material-button {
@@ -48,7 +51,7 @@ $material-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 
 @mixin material-input{
    border:0;
-   border-bottom:0.1em solid $primary-color;
+   border-bottom:0.1em solid #BDBDBD;
    padding:0.5em;
    margin-right: 1em;
    font: 100% $font-stack;
@@ -59,11 +62,22 @@ $material-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
    }
 }
 
+@mixin material-icon{
+   font-size: 2em;
+   margin-left: 1em;
+   margin-right: 1em;
+}
+
+.fa{
+   @include material-icon()
+}
+
 html, body{
    width:100%;
    height:100%;
    margin:0;
    padding:0;
+   line-height: 1.25em;
 }
 
 body *{
@@ -95,16 +109,21 @@ header, footer, .component{
    @include material-box()
 }
 
+header, footer{
+   color:#fff;
+}
+
 header{
    & .subtitle{
       display: block;
       margin-bottom:1.5em;
-      color:#666;
    }
 }
 
 main{
-   width:97.5%;
+   width:100%;
+   padding-left:1.5em;
+   padding-right: 1.5em;
    display: block;
    margin-left: auto;
    margin-right: auto;
@@ -141,11 +160,11 @@ a, button{
 nav{
    a{
       margin-right: 1.5em;
-      color: #2980b9;
+      color: #fff;
 
       //Using parent selector &
       &:hover{
-         color: #2c3e50;
+         color: $anchor-color-hover;
       }
 
       &.active{
@@ -178,6 +197,7 @@ input{
 .float{
    display: inline-block;
    overflow:hidden;
+   vertical-align: top;
 }
 
 .left{
@@ -188,12 +208,17 @@ input{
    float:right;
 }
 
+
+
+
+
 /* ===== CUSTOM STYLES ====== */
 
 .brewski-element{
    height: auto;
    overflow: hidden;
    margin-top:1.5em;
+   padding-right: 1em;
 }
 
 .brewski-element img{

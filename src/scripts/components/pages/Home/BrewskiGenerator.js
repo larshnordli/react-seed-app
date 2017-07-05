@@ -9,15 +9,27 @@ export default class BrewskiGenerator extends React.Component{
          text: 'Find your new favorite beer',
          // apiUrl: 'http://setgetgo.com/randomword/get.php',
          apiUrl: 'https://api.punkapi.com/v2/beers/random',
-         brewskies: []
+         brewskies: [],
+         loading: false
       }
    }
 
    componentDidMount(){
+      this.setState({
+         loading:true
+      })
+
+      var tempBrews = this.state.brewskies;
+
       fetch(this.state.apiUrl)
       .then((response) => response.json())
       .then((responseJson) => {
-         this.state.brewskies.push(responseJson[0])
+         tempBrews.push(responseJson[0])
+
+         this.setState({
+            brewskies: tempBrews,
+            loading: false
+         })
       })
    }
 
@@ -31,8 +43,12 @@ export default class BrewskiGenerator extends React.Component{
                onClick={this.componentDidMount.bind(this)}
             >Fetch me another brewski, will ya?!</button>
 
-            {this.state.brewskies.map(function(brewski){
-               return <p>bjefffff</p>
+            {this.state.loading ? <i className="fa fa-spin fa-circle-o-notch"></i> : ''}
+
+            <div className="clearfix"></div>
+
+            {this.state.brewskies.map((brew, index) => {
+               return <BrewskiViewer key={index} brewski={brew}/>
             })}
 
 

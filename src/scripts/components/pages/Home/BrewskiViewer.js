@@ -8,7 +8,8 @@ export default class BrewskiViewer extends React.Component{
       }
    }
 
-   toggleCollapse(){
+   toggleCollapse(e){
+      e.preventDefault();
       console.log('bjeff', this.state)
 
       this.setState({
@@ -22,17 +23,14 @@ export default class BrewskiViewer extends React.Component{
       if(this.props.brewski){
          brewski = this.props.brewski;
       }
-      else{
-         brewski.name = 'Loading...';
-      }
 
       return(
-         <div className="brewski-element half">
+         <div className="brewski-element one-third float">
             <img src={brewski.image_url + '?' + new Date().getTime()} alt=""/>
             <div className="brewski-text">
                <h3>{brewski.name}</h3>
                <p>{brewski.tagline}</p>
-               <button class="toggle" onClick={this.toggleCollapse.bind(this)}>Show Description</button>
+               <a href="#" class="toggle" onClick={this.toggleCollapse.bind(this)}>{this.state.collapsed ? 'Show' : 'Hide'} Description</a>
                <p className={'text ' + (this.state.collapsed ? 'collapsed' : 'open')}>{brewski.description}</p>
             </div>
          </div>
