@@ -21,25 +21,6 @@ stages:
 
       tar -czf node_modules.tar.gz node_modules
       rm -rf node_modules
-- name: Run Unit Test
-  inputs:
-  - type: job
-    stage: Build
-    job: Build
-    dir_name: null
-  triggers:
-  - type: stage
-  jobs:
-  - name: Linting and Unit Tests
-    type: tester
-    script: |-
-      #!/bin/bash
-
-      tar -xzf node_modules.tar.gz
-
-      grunt test:dist
-    enable_tests: true
-    test_file_pattern: tests/reports/unit-tests.xml
 - name: Deploy to Test
   inputs:
   - type: job
@@ -49,11 +30,11 @@ stages:
   triggers:
   - type: stage
   jobs:
-  - name: '*Disabled* End-to-end Tests'
+  - name: 'Test Job'
     type: tester
     script: |-
       #!/bin/bash
-      # Supposed to be end-to-end testing through Saucelabs, but not configured and therefore disabled.
+      # Supposed to be testing through e.g. Saucelabs, but not configured and therefore disabled.
       # Must be configured as module in Toolchain, and selected.
   - name: Deploy Test
     type: deployer
