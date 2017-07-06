@@ -1,6 +1,6 @@
 ---
 stages:
-- name: Build Stage
+- name: Build
   inputs:
   - type: git
     branch: master
@@ -14,22 +14,47 @@ stages:
     artifact_dir: ''
     build_type: npm
     script: |-
-      #!/bin/bash
-      # The default Node.js version is 0.10.40
-      # To use Node.js 0.12.7, uncomment the following line:
-      #export PATH=/opt/IBM/node-v0.12/bin:$PATH
-      # To use Node.js 4.2.2, uncomment the following line:
-      #export PATH=/opt/IBM/node-v4.2/bin:$PATH
+      export PATH=/opt/IBM/node-v4.2/bin:$PATH
+
       npm install
-- name: Deploy To Test
+      npm run build
+
+      tar -czf node_modules.tar.gz node_modules
+      rm -rf node_modules
+- name: Run Unit Test
   inputs:
   - type: job
-    stage: Build Stage
+    stage: Build
     job: Build
     dir_name: null
   triggers:
   - type: stage
   jobs:
+  - name: Linting and Unit Tests
+    type: tester
+    script: |-
+      #!/bin/bash
+
+      tar -xzf node_modules.tar.gz
+
+      grunt test:dist
+    enable_tests: true
+    test_file_pattern: tests/reports/unit-tests.xml
+- name: Deploy to Test
+  inputs:
+  - type: job
+    stage: Build
+    job: Build
+    dir_name: null
+  triggers:
+  - type: stage
+  jobs:
+  - name: '*Disabled* End-to-end Tests'
+    type: tester
+    script: |-
+      #!/bin/bash
+      # Supposed to be end-to-end testing through Saucelabs, but not configured and therefore disabled.
+      # Must be configured as module in Toolchain, and selected.
   - name: Deploy Test
     type: deployer
     target:
@@ -39,30 +64,27 @@ stages:
       application: ${CF_TEST_APP_NAME}
     script: |
       #!/bin/bash
-      cf push "${CF_APP}" -f manifest-test.yml
+      cf push "${CF_APP}"
 - name: Deploy to Production
   inputs:
   - type: job
-    stage: Build Stage
+    stage: Build
     job: Build
     dir_name: null
   triggers:
   - type: stage
     enabled: false
   jobs:
-  - name: Deploy
+  - name: Deploy Prod
     type: deployer
     target:
       region_id: ${PROD_REGION_ID}
       organization: ${PROD_ORG_NAME}
       space: ${PROD_SPACE_NAME}
       application: ${CF_APP_NAME}
-    script: |-
+    script: |
       #!/bin/bash
-      cf push "${CF_APP}" -f manifest-prod.yml
-
-      # View logs
-      # cf logs "${CF_APP}" --recent
+      cf push "${CF_APP}"
 hooks:
 - enabled: true
   label: null

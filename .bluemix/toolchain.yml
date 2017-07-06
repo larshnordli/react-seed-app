@@ -2,8 +2,8 @@
 default_locale: en
 locales:
   $ref: locales.yml
-name: "React + SCSS Bluemix Seed Application"
-description: "Includes a reuseable React + SCSS front-end solution, in addition to a continous delivery pipeline with Test Environment and manually deployable Production Environment"
+name: "React Bluemix Seed Application"
+description: "Includes frontend tools like React and SCSS, in addition to a continous delivery pipeline"
 version: 0.1
 image: data:image/svg+xml;base64,$file(toolchain.svg,base64)
 icon: data:image/svg+xml;base64,$file(icon.svg,base64)
@@ -42,7 +42,7 @@ sample-build:
 
 #Web IDE
 #webide:
-#  service_id: orion
+  #service_id: orion
 
 #Deployment
 deploy:
