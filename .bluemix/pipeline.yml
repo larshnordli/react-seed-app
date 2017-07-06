@@ -2,26 +2,26 @@
 stages:
 - name: Build
   inputs:
-  - type: git
-    branch: master
-    service: ${SAMPLE_REPO}
-    dir_name: null
-  triggers:
-  - type: commit
-  jobs:
-  - name: Build
-    type: builder
-    artifact_dir: ''
-    build_type: npm
-    script: |-
-      export PATH=/opt/IBM/node-v4.2/bin:$PATH
+- url: ${SAMPLE_REPO}
+  type: git
+  branch: master
+  dir_name: null
+triggers:
+- type: commit
+jobs:
+- name: Build
+ type: builder
+ artifact_dir: ''
+ build_type: npm
+ script: |-
+   export PATH=/opt/IBM/node-v4.2/bin:$PATH
 
-      # Install & build
-      npm install
-      npm run build
+   # Install & build
+   npm install
+   npm run build
 
-      tar -czf node_modules.tar.gz node_modules
-      rm -rf node_modules
+   tar -czf node_modules.tar.gz node_modules
+   rm -rf node_modules
 - name: Test
   inputs:
   - type: job
@@ -38,11 +38,10 @@ stages:
 
       tar -xzf node_modules.tar.gz
 
-      #test command here
-
+      #Test command here
     enable_tests: true
-    test_file_pattern: tests/reports/unit-tests.xml
-- name: Test Environment
+    test_file_pattern: tests/TEST-*.xml
+- name: 'Deploy: Test Environment'
   inputs:
   - type: job
     stage: Build
@@ -51,7 +50,7 @@ stages:
   triggers:
   - type: stage
   jobs:
-  - name: Deploy: Test
+  - name: 'Deploy: Test'
     type: deployer
     target:
       region_id: ${PROD_REGION_ID}
@@ -61,26 +60,26 @@ stages:
     script: |
       #!/bin/bash
       cf push "${CF_APP}"
-- name: Production Environment
+- name: 'Deploy: Production Environment'
   inputs:
   - type: job
     stage: Build
     job: Build
     dir_name: null
-  triggers:
-  - type: stage
-    enabled: false
   jobs:
-  - name: Deploy Prod
+  - name: 'Deploy: Prod'
     type: deployer
     target:
       region_id: ${PROD_REGION_ID}
       organization: ${PROD_ORG_NAME}
       space: ${PROD_SPACE_NAME}
       application: ${CF_APP_NAME}
-    script: |
+    script: |-
       #!/bin/bash
       cf push "${CF_APP}"
+
+      # View logs
+      # cf logs "${CF_APP}" --recent
 hooks:
 - enabled: true
   label: null
