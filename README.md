@@ -1,11 +1,10 @@
-# React + Redux Seed Application
-A React + Redux frontend starter/seed application, made for Bluemix. Includes
+# React Seed Application
+A React frontend starter/seed application, made for Bluemix. Includes
 - Module loading w/ Webpack
 - Package management with NPM
 - Unit Testing w/ TBA
 - SCSS
 - Pre-configured Bluemix Toolchain
-- .. and much more.
 
 ## Get Started
 Creating an app is simple as pie. Click the button and follow the steps - a clone of this repo will be made automatically.
@@ -19,7 +18,7 @@ After you've pulled all files from your newly created repo:
 ## How to deploy to Bluemix
 Clik the "Deploy to Bluemix" button after your logged into Bluemix and navigated to the correct Region, Org and Space.
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/devops/setup/deploy/?repository=https://github.com/larshnordli/react-seed-app)
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://ng.bluemix.net/devops/setup/deploy/?repository=https%3A//github.com/larshnordli/react-seed-app.git)
 
 ----
 Bjeff it up!™

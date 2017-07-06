@@ -4,7 +4,7 @@ locales:
   $ref: locales.yml
 name: "React Bluemix Seed Application"
 description: "Build on React and SCSS, in addition to a continous delivery pipeline"
-version: 1.0
+version: "1"
 image: data:image/svg+xml;base64,$file(toolchain.svg,base64)
 icon: data:image/svg+xml;base64,$file(icon.svg,base64)
 required:
