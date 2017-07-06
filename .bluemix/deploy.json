@@ -1,23 +1,23 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "React + SCSS Toolchain",
+    "title": "Sample Deploy Stage",
     "localized-struct":{
         "$ref": "deploy-localized-struct.json"
     },
-    "description": "Build, Test, Test Environment and manually triggered Production Environment",
+    "description": "sample toolchain",
     "longDescription": "The Delivery Pipeline automates continuous deployment.",
     "type": "object",
     "properties": {
         "prod-region": {
-            "description": "The Bluemix region",
+            "description": "The bluemix region",
             "type": "string"
         },
         "prod-organization": {
-            "description": "The Bluemix org",
+            "description": "The bluemix org",
             "type": "string"
         },
        "prod-space": {
-            "description": "The Bluemix space",
+            "description": "The bluemix space",
             "type": "string"
         },
        "prod-app-name": {

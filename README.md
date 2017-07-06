@@ -18,7 +18,7 @@ After you've pulled all files from your newly created repo:
 ## How to deploy to Bluemix
 Clik the "Deploy to Bluemix" button after your logged into Bluemix and navigated to the correct Region, Org and Space.
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://ng.bluemix.net/devops/setup/deploy/?repository=https%3A//github.com/larshnordli/react-seed-app.git)
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://console.ng.bluemix.net/devops/setup/deploy/?repository=https://github.com/larshnordli/react-seed-app)
 
 ----
 Bjeff it up!™

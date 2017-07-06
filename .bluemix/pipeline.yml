@@ -1,58 +1,36 @@
 ---
 stages:
-- name: 'Build'
+- name: Build Stage
   inputs:
-- type: git
-  branch: master
-  service: ${SAMPLE_REPO}
-  dir_name: null
-triggers:
-- type: commit
-jobs:
-- name: 'Build'
- type: builder
- artifact_dir: ''
- build_type: npm
- script: |-
-    #!/bin/bash
-    # The default Node.js version is 0.10.40
-    # To use Node.js 0.12.7, uncomment the following line:
-    #export PATH=/opt/IBM/node-v0.12/bin:$PATH
-    # To use Node.js 4.2.2, uncomment the following line:
-    export PATH=/opt/IBM/node-v4.2/bin:$PATH
-
-   # Install & build
-   npm install
-   npm run build
-- name: 'Test'
-  inputs:
-  - type: job
-    stage: Build
-    job: Build
+  - type: git
+    branch: master
+    service: ${SAMPLE_REPO}
     dir_name: null
   triggers:
-  - type: stage
+  - type: commit
   jobs:
-  - name: Test
-    type: tester
+  - name: Build
+    type: builder
+    artifact_dir: ''
+    build_type: npm
     script: |-
       #!/bin/bash
-
-      tar -xzf node_modules.tar.gz
-
-      #Test command here
-    enable_tests: true
-    test_file_pattern: tests/TEST-*.xml
-- name: 'Deploy: Test Environment'
+      # The default Node.js version is 0.10.40
+      # To use Node.js 0.12.7, uncomment the following line:
+      #export PATH=/opt/IBM/node-v0.12/bin:$PATH
+      # To use Node.js 4.2.2, uncomment the following line:
+      #export PATH=/opt/IBM/node-v4.2/bin:$PATH
+      npm install
+- name: Deploy To Test
   inputs:
   - type: job
-    stage: Build
+    stage: Build Stage
     job: Build
     dir_name: null
   triggers:
   - type: stage
   jobs:
-  - name: 'Deploy: Test'
+  - name: Deploy Test
     type: deployer
     target:
       region_id: ${PROD_REGION_ID}
@@ -61,15 +39,18 @@ jobs:
       application: ${CF_TEST_APP_NAME}
     script: |
       #!/bin/bash
-      cf push "${CF_APP}" -f manifest.yml
-- name: 'Deploy: Production Environment'
+      cf push "${CF_APP}" -f manifest-test.yml
+- name: Deploy to Production
   inputs:
   - type: job
-    stage: Build
+    stage: Build Stage
     job: Build
     dir_name: null
+  triggers:
+  - type: stage
+    enabled: false
   jobs:
-  - name: 'Deploy: Prod'
+  - name: Deploy
     type: deployer
     target:
       region_id: ${PROD_REGION_ID}
@@ -78,7 +59,7 @@ jobs:
       application: ${CF_APP_NAME}
     script: |-
       #!/bin/bash
-      cf push "${CF_APP}"
+      cf push "${CF_APP}" -f manifest-prod.yml
 
       # View logs
       # cf logs "${CF_APP}" --recent
