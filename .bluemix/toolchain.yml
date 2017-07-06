@@ -1,53 +1,70 @@
 ---
-default_locale: en
-locales:
-  $ref: locales.yml
-name: "React Bluemix Seed Application"
-description: "Build on React and SCSS, in addition to a continous delivery pipeline"
-version: "1"
-image: data:image/svg+xml;base64,$file(toolchain.svg,base64)
-icon: data:image/svg+xml;base64,$file(icon.svg,base64)
-required:
- - deploy
- - sample-repo
+stages:
+- name: Build Stage
+  inputs:
+  - type: git
+    branch: master
+    service: ${SAMPLE_REPO}
+    dir_name: null
+  triggers:
+  - type: commit
+  jobs:
+  - name: Build
+    type: builder
+    artifact_dir: ''
+    build_type: npm
+    script: |-
+      #!/bin/bash
+      # The default Node.js version is 0.10.40
+      # To use Node.js 0.12.7, uncomment the following line:
+      #export PATH=/opt/IBM/node-v0.12/bin:$PATH
+      # To use Node.js 4.2.2, uncomment the following line:
+      #export PATH=/opt/IBM/node-v4.2/bin:$PATH
+      npm install
+- name: Deploy To Test
+  inputs:
+  - type: job
+    stage: Build Stage
+    job: Build
+    dir_name: null
+  triggers:
+  - type: stage
+  jobs:
+  - name: Deploy Test
+    type: deployer
+    target:
+      region_id: ${PROD_REGION_ID}
+      organization: ${PROD_ORG_NAME}
+      space: ${PROD_SPACE_NAME}
+      application: ${CF_TEST_APP_NAME}
+    script: |
+      #!/bin/bash
+      cf push "${CF_APP}" -f manifest-test.yml
+- name: Deploy to Production
+  inputs:
+  - type: job
+    stage: Build Stage
+    job: Build
+    dir_name: null
+  triggers:
+  - type: stage
+    enabled: false
+  jobs:
+  - name: Deploy
+    type: deployer
+    target:
+      region_id: ${PROD_REGION_ID}
+      organization: ${PROD_ORG_NAME}
+      space: ${PROD_SPACE_NAME}
+      application: ${CF_APP_NAME}
+    script: |-
+      #!/bin/bash
+      cf push "${CF_APP}" -f manifest-prod.yml
 
-# Github repos
-sample-repo:
-  service_id: githubpublic
-  parameters:
-    repo_name: "{{name}}"
-    repo_url: https://github.com/larshnordli/react-seed-app
-    type: clone
-    has_issues: false
-
-# Pipelines
-sample-build:
-  service_id: pipeline
-  parameters:
-    name: "{{name}}"
-    ui-pipeline: true
-    configuration:
-     content: $file(pipeline.yml)
-     env:
-      SAMPLE_REPO: "sample-repo"
-      CF_APP_NAME: "{{deploy.parameters.prod-app-name}}"
-      CF_TEST_APP_NAME: "{{deploy.parameters.prod-app-name}}-test"
-      PROD_SPACE_NAME: "{{deploy.parameters.prod-space}}"
-      PROD_ORG_NAME: "{{deploy.parameters.prod-organization}}"
-      PROD_REGION_ID: "{{deploy.parameters.prod-region}}"
-     execute: true
-    services: ["sample-repo"]
-  hidden: [form, description]
-
-
-#Web IDE
-#webide:
-  #service_id: orion
-
-#Deployment
-deploy:
-  schema:
-    $ref: deploy.json
-  service-category: pipeline
-  parameters:
-    prod-app-name: "{{sample-repo.parameters.repo_name}}"
+      # View logs
+      # cf logs "${CF_APP}" --recent
+hooks:
+- enabled: true
+  label: null
+  ssl_enabled: false
+  url: https://devops-api.ng.bluemix.net/v1/messaging/webhook/publish
