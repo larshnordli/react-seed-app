@@ -2,26 +2,30 @@ const debug = process.env.NODE_ENV !== 'production';
 const webpack = require('webpack');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
    context: __dirname,
    devtool: debug ? 'source-map' : null,
    entry:{
       main: './src/scripts/app.js',
+      main: './src/styles/sass/style.scss'
    },
    output: {
-      filename: './dist/scripts/[name].js'
+       path: __dirname + '/dist',
+      filename: '[name].js'
    },
    module: {
       loaders: [
-         // SASS Loader and Transpiler
-         {
+          // SASS Loader and Transpiler
+          {
             test: /\.scss$/,
             use: ExtractTextPlugin.extract({
-               fallback: 'style-loader',
-               use: ['css-loader', 'sass-loader']
+              fallback: 'style-loader',
+              //resolve-url-loader may be chained before sass-loader if necessary
+              use: ['css-loader', 'sass-loader']
             })
-         },
+          },
 
          // JS Loaders
          {
@@ -39,22 +43,15 @@ module.exports = {
          { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
       ]
    },
-   plugins: debug ? [
-      new ExtractTextPlugin({
-         filename:'./dist/styles/[name].css',
-         allChunks: true
-      })
-   ] : [
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.OccurenceOrderPlugin(),
+   plugins: [
       new webpack.optimize.UglifyJsPlugin(
          {
             mangle:false,
             sourcemap: false
          }),
-         new ExtractTextPlugin({
-            filename:'./dist/styles/[name].css',
-            allChunks: true
-         })
+      new ExtractTextPlugin('[name].css'),
+     new HtmlWebpackPlugin({
+            template: __dirname + '/src/index.html'
+        })
    ],
 };

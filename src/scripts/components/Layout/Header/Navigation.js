@@ -19,7 +19,7 @@ export default class Navigation extends React.Component{
 
    render(){
       return(
-         <nav>
+         <nav className="float right">
             {this.navigationItems}
          </nav>
       )

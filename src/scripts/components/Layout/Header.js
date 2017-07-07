@@ -6,7 +6,7 @@ export default class Header extends React.Component{
    render(){
       return(
          <header>
-            <h1>{this.props.title}</h1>
+            <h1 className="float left">{this.props.title}</h1>
             <Navigation />
          </header>
       )
