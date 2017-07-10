@@ -6,13 +6,14 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    context: __dirname,
+    devtool: debug ? 'source-map' : null,
    entry:{
-      main: './src/scripts/app.js',
-      main: './src/styles/sass/style.scss'
+      main: './src/scripts/app.js'
    },
    output: {
        path: path.resolve('dist'),
-      filename: '[name].js'
+      filename: '[name].js',
    },
    module: {
       loaders: [
@@ -44,16 +45,25 @@ module.exports = {
          { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
       ]
    },
-   plugins: [
-      new webpack.optimize.UglifyJsPlugin({
-        mangle:false,
-        sourcemap: false
+   plugins:  debug ? [
+      new ExtractTextPlugin('[name].css'),
+      new HtmlWebpackPlugin({
+         template: __dirname + '/src/index.html',
+         filename: 'index.html',
+         inject: 'body'
      }),
+    ] : [
      new ExtractTextPlugin('[name].css'),
      new HtmlWebpackPlugin({
         template: __dirname + '/src/index.html',
         filename: 'index.html',
         inject: 'body'
-    })
-   ],
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin()
+    ],
 };

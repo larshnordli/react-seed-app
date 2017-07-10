@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {HashRouter, Route} from 'react-router-dom';
 
 import Styles from '../styles/sass/style.scss';
 
@@ -16,14 +16,13 @@ import Home from './components/pages/Home';
 const app = document.getElementById('app');
 //ReactDOM.render(<Layout/>, app);
 
-console.log('App Loaded');
-
 ReactDOM.render(
-   <BrowserRouter>
+
+   <HashRouter>
       <Layout>
          <Route exact path="/" component={Home} />
          <Route path="/about" component={About}/>
          <Route path="/pricing" component={Pricing}/>
       </Layout>
-   </BrowserRouter>,
+   </HashRouter>,
    app);
