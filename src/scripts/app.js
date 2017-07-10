@@ -15,6 +15,9 @@ import Home from './components/pages/Home';
 
 const app = document.getElementById('app');
 //ReactDOM.render(<Layout/>, app);
+
+console.log('App Loaded');
+
 ReactDOM.render(
    <BrowserRouter>
       <Layout>

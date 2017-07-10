@@ -1,18 +1,17 @@
 const debug = process.env.NODE_ENV !== 'production';
 const webpack = require('webpack');
+const path = require('path');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-   context: __dirname,
-   devtool: debug ? 'source-map' : null,
    entry:{
       main: './src/scripts/app.js',
       main: './src/styles/sass/style.scss'
    },
    output: {
-       path: __dirname + '/dist',
+       path: path.resolve('dist'),
       filename: '[name].js'
    },
    module: {
@@ -28,9 +27,18 @@ module.exports = {
           },
 
          // JS Loaders
-         { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-         { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
-
+        //  { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+          { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
+        // JS Loaders
+       {
+          test: /\.js?$/,
+          exclude: /(node_modules|bower_components)/,
+          loader: 'babel-loader',
+          options: {
+             presets: ['react', 'es2015', 'stage-2'],
+             plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy']
+          }
+       },
          //Vendor: Font Awesome Loaders
          { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
          { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
