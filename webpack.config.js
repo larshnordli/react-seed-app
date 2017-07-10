@@ -45,7 +45,8 @@ module.exports = {
          { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
       ]
    },
-   plugins:  debug ? [
+   plugins:
+    debug ? [
       new ExtractTextPlugin('[name].css'),
       new HtmlWebpackPlugin({
          template: __dirname + '/src/index.html',
