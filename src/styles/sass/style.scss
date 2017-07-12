@@ -24,7 +24,7 @@ $material-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
    padding:1.5em;
    margin:1.5em;
    box-shadow: $material-box-shadow;
-   border-radius: 0.25em;
+   border-radius: 0.1em;
    height: auto;
    overflow: hidden;
 }
@@ -115,8 +115,11 @@ header,footer{
 
 header{
     overflow: hidden;
-    height: auto;
-    vertical-align: middle;
+    height: 4em;
+    line-height: 4em;
+
+    padding-top:0;
+    padding-bottom:0;
 
    & .subtitle{
       display: block;
@@ -124,8 +127,8 @@ header{
    }
 
    h1{
-       margin-top: 0;
-       padding-top: 0;
+       margin: 0;
+       padding: 0;
    }
 }
 
@@ -167,8 +170,6 @@ a, button{
 }
 
 nav{
-    vertical-align: middle;
-
    a{
       margin-right: 1.5em;
       text-decoration: none;

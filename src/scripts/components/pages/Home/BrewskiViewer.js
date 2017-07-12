@@ -10,7 +10,10 @@ export default class BrewskiViewer extends React.Component{
 
    toggleCollapse(e){
       e.preventDefault();
-      console.log('bjeff', this.state)
+
+      this.setState(prevState => ({
+          collapsed: !prevState.collapsed
+      }));
 
       this.setState({
          collapsed: !this.state.collapsed
