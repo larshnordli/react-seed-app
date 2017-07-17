@@ -15,9 +15,9 @@ export default class BrewskiViewer extends React.Component{
           collapsed: !prevState.collapsed
       }));
 
-      this.setState({
-         collapsed: !this.state.collapsed
-      })
+    //   this.setState({
+    //      collapsed: !this.state.collapsed
+    //   })
    }
 
    render(){

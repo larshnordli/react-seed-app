@@ -5,6 +5,7 @@ import React from 'react';
 
 import InputBinder from './Home/InputBinder';
 import BrewskiGenerator from './Home/BrewskiGenerator';
+import PetSelector from './Home/PetSelector';
 
 export default class Home extends React.Component{
    render(){
@@ -14,8 +15,11 @@ export default class Home extends React.Component{
 
             <p>All your content and components go here!</p>
 
-            <InputBinder className="component one-third"/>
+            <InputBinder className="component float one-third"/>
+            <PetSelector className="component float two-thirds" />
+
             <BrewskiGenerator className="component whole" />
+
          </div>
       )
    }
