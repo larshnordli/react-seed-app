@@ -16,7 +16,7 @@ export default class Home extends React.Component{
             <p>All your content and components go here!</p>
 
             <InputBinder className="component float one-third"/>
-            <PetSelector className="component float two-thirds" />
+            <PetSelector className="component float one-third" />
 
             <BrewskiGenerator className="component whole" />
 
